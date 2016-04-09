@@ -10,6 +10,11 @@
 
     <!-- Add Category Fragment -->
     <string name="add_expense_title">Add Expense</string>
+    <string name="add_expense_category">Category</string>
+    <string name="add_expense_value">Value</string>
+    <string name="add_expense_date">Date</string>
+    <string name="add_expense_user_description">Description</string>
+    <string name="add_expense_add_category">Add Category</string>
 
     <!-- Categories Fragment -->
     <string name="categories_title">Categories</string>

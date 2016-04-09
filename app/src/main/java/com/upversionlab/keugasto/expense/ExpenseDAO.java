@@ -3,7 +3,7 @@ package com.upversionlab.keugasto.expense;
 import com.upversionlab.keugasto.category.Category;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -26,7 +26,7 @@ public class ExpenseDAO {
         expenses = new ArrayList<>();
     }
 
-    public Expense addExpense(Category category, float value, Date date, String userDescription) {
+    public Expense addExpense(Category category, float value, Calendar date, String userDescription) {
         Expense expense = new Expense();
         expense.category = category;
         expense.value = value;
