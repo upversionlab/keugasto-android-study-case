@@ -84,6 +84,10 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Expense> getExpenses() {
+        return getExpenses(null, null);
+    }
+
+    private List<Expense> getExpenses(String selection, String[] selectionArgs) {
         List<Expense> expenses = new ArrayList<>();
 
         SQLiteDatabase database = getReadableDatabase();
@@ -99,8 +103,8 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(
                 ExpenseEntry.TABLE_NAME,
                 projection,
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 null
@@ -130,5 +134,4 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
 
         return expenses;
     }
-
 }

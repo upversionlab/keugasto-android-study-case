@@ -68,47 +68,19 @@ public class CategoryDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public Category getCategoryById(long categoryId) {
-        Category category = null;
-
-        SQLiteDatabase database = getReadableDatabase();
-
-        String[] projection = {
-                CategoryEntry._ID,
-                CategoryEntry.NAME_COLUMN_NAME,
-                CategoryEntry.LIMIT_COLUMN_NAME,
-        };
-
         String selection = CategoryEntry._ID + "= ?";
-
         String[] selectionArgs = {
                 Long.toString(categoryId)
         };
-
-        Cursor cursor = database.query(
-                CategoryEntry.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        if (cursor.moveToFirst()) {
-            long id = cursor.getLong(cursor.getColumnIndexOrThrow(CategoryEntry._ID));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(CategoryEntry.NAME_COLUMN_NAME));
-            float limit = cursor.getFloat(cursor.getColumnIndexOrThrow(CategoryEntry.LIMIT_COLUMN_NAME));
-
-            category = new Category();
-            category.id = id;
-            category.name = name;
-            category.limit = limit;
-        }
-
-        return category;
+        List<Category> categories = getCategories(selection, selectionArgs);
+        return categories.isEmpty() ? null : categories.get(0);
     }
 
     public List<Category> getCategories() {
+        return getCategories(null, null);
+    }
+
+    private List<Category> getCategories(String selection, String[] selectionArgs) {
         List<Category> categories = new ArrayList<>();
 
         SQLiteDatabase database = getReadableDatabase();
@@ -122,8 +94,8 @@ public class CategoryDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = database.query(
                 CategoryEntry.TABLE_NAME,
                 projection,
-                null,
-                null,
+                selection,
+                selectionArgs,
                 null,
                 null,
                 null
