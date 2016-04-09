@@ -22,7 +22,7 @@ import com.upversionlab.keugasto.base.BaseFragment;
 import com.upversionlab.keugasto.controller.category.AddCategoryActivity;
 import com.upversionlab.keugasto.controller.category.AddCategoryFragment;
 import com.upversionlab.keugasto.model.category.Category;
-import com.upversionlab.keugasto.model.category.CategoryDAO;
+import com.upversionlab.keugasto.model.category.CategoryDatabaseHelper;
 import com.upversionlab.keugasto.model.expense.Expense;
 import com.upversionlab.keugasto.model.expense.ExpenseDAO;
 
@@ -40,13 +40,13 @@ public class AddExpenseFragment extends BaseFragment {
 
     private static final int ADD_CATEGORY_REQUEST_CODE = 1;
 
+    private ExpenseDAO expenseDAO;
+    private CategoryDatabaseHelper categoryDatabaseHelper;
+
     private EditText categoryEditText;
     private EditText valueEditText;
     private EditText dateEditText;
     private EditText userDescriptionEditText;
-
-    private ExpenseDAO expenseDAO;
-    private CategoryDAO categoryDAO;
 
     private Category selectedCategory;
     private Calendar selectedDate;
@@ -59,6 +59,9 @@ public class AddExpenseFragment extends BaseFragment {
         setHasOptionsMenu(false);
         setHasFloatingActionButton(true);
 
+        expenseDAO = ExpenseDAO.getInstance();
+        categoryDatabaseHelper = new CategoryDatabaseHelper(getContext());
+
         categoryEditText = (EditText) view.findViewById(R.id.add_expense_category);
         valueEditText = (EditText) view.findViewById(R.id.add_expense_value);
         dateEditText = (EditText) view.findViewById(R.id.add_expense_date);
@@ -68,7 +71,7 @@ public class AddExpenseFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 CategoryPickerFragment categoryPickerFragment = new CategoryPickerFragment();
-                categoryPickerFragment.setCategoryDAO(categoryDAO);
+                categoryPickerFragment.setCategoryDatabaseHelper(categoryDatabaseHelper);
                 categoryPickerFragment.setCategoryPickerListener(new CategoryPickerListener());
                 categoryPickerFragment.setCategoryPickerAddCategoryListener(new CategoryPickerAddCategoryListener());
                 categoryPickerFragment.show(getFragmentManager(), "categoryPicker");
@@ -83,9 +86,6 @@ public class AddExpenseFragment extends BaseFragment {
                 datePickerFragment.show(getFragmentManager(), "datePicker");
             }
         });
-
-        expenseDAO = ExpenseDAO.getInstance();
-        categoryDAO = CategoryDAO.getInstance();
 
         return view;
     }
@@ -123,7 +123,7 @@ public class AddExpenseFragment extends BaseFragment {
 
     public static class CategoryPickerFragment extends DialogFragment {
 
-        private CategoryDAO categoryDAO;
+        private CategoryDatabaseHelper categoryDatabaseHelper;
         private CategoryPickerListener categoryPickerListener;
         private CategoryPickerAddCategoryListener categoryPickerAddCategoryListener;
 
@@ -133,7 +133,7 @@ public class AddExpenseFragment extends BaseFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             categoryNames = new ArrayList<>();
-            for (Category category : categoryDAO.getCategories()) {
+            for (Category category : categoryDatabaseHelper.getCategories()) {
                 categoryNames.add(category.name);
             }
 
@@ -146,8 +146,8 @@ public class AddExpenseFragment extends BaseFragment {
             return builder.create();
         }
 
-        public void setCategoryDAO(CategoryDAO categoryDAO) {
-            this.categoryDAO = categoryDAO;
+        public void setCategoryDatabaseHelper(CategoryDatabaseHelper categoryDatabaseHelper) {
+            this.categoryDatabaseHelper = categoryDatabaseHelper;
         }
 
         public void setCategoryPickerListener(CategoryPickerListener listener) {
@@ -163,7 +163,7 @@ public class AddExpenseFragment extends BaseFragment {
 
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            selectedCategory = categoryDAO.getCategories().get(which);
+            selectedCategory = categoryDatabaseHelper.getCategories().get(which);
 
             categoryEditText.setText(selectedCategory.name);
         }

@@ -10,6 +10,7 @@ import java.util.Calendar;
  */
 public class Expense implements Serializable {
 
+    public long id;
     public Category category;
     public float value;
     public Calendar date;

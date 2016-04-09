@@ -13,7 +13,7 @@ import android.widget.EditText;
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
 import com.upversionlab.keugasto.model.category.Category;
-import com.upversionlab.keugasto.model.category.CategoryDAO;
+import com.upversionlab.keugasto.model.category.CategoryDatabaseHelper;
 
 /**
  * Created by vruzeda on 4/9/16.
@@ -22,10 +22,10 @@ public class AddCategoryFragment extends BaseFragment {
 
     public static final String CATEGORY_EXTRA = "CATEGORY_EXTRA";
 
+    private CategoryDatabaseHelper categoryDatabaseHelper;
+
     private EditText nameEditText;
     private EditText limitEditText;
-
-    private CategoryDAO categoryDAO;
 
     @Nullable
     @Override
@@ -38,7 +38,7 @@ public class AddCategoryFragment extends BaseFragment {
         nameEditText = (EditText) view.findViewById(R.id.add_category_name);
         limitEditText = (EditText) view.findViewById(R.id.add_category_limit);
 
-        categoryDAO = CategoryDAO.getInstance();
+        categoryDatabaseHelper = new CategoryDatabaseHelper(getContext());
 
         return view;
     }
@@ -52,7 +52,7 @@ public class AddCategoryFragment extends BaseFragment {
                 String name = nameEditText.getText().toString();
                 float limit = Float.parseFloat(limitEditText.getText().toString());
 
-                Category category = categoryDAO.addCategory(name, limit);
+                Category category = categoryDatabaseHelper.addCategory(name, limit);
 
                 Intent data = new Intent();
                 data.putExtra(CATEGORY_EXTRA, category);

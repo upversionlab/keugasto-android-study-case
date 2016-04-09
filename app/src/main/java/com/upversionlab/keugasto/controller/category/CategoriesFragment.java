@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
 import com.upversionlab.keugasto.model.category.Category;
-import com.upversionlab.keugasto.model.category.CategoryDAO;
+import com.upversionlab.keugasto.model.category.CategoryDatabaseHelper;
 
 import java.util.List;
 
@@ -68,11 +68,11 @@ public class CategoriesFragment extends BaseFragment {
 
     private class CategoriesAdapter extends RecyclerView.Adapter<ExpenseViewHolder> {
 
-        private CategoryDAO categoryDAO;
+        private CategoryDatabaseHelper categoryDatabaseHelper;
         private List<Category> categories;
 
         CategoriesAdapter() {
-            categoryDAO = CategoryDAO.getInstance();
+            categoryDatabaseHelper = new CategoryDatabaseHelper(getContext());
             updateCategories();
         }
 
@@ -94,7 +94,7 @@ public class CategoriesFragment extends BaseFragment {
         }
 
         public void updateCategories() {
-            categories = categoryDAO.getCategories();
+            categories = categoryDatabaseHelper.getCategories();
             notifyDataSetChanged();
         }
     }
