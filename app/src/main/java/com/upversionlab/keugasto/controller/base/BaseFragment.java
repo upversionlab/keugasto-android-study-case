@@ -1,4 +1,4 @@
-package com.upversionlab.keugasto.base;
+package com.upversionlab.keugasto.controller.base;
 
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;

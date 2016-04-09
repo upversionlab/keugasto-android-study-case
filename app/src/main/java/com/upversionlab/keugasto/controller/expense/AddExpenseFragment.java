@@ -18,7 +18,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 
 import com.upversionlab.keugasto.R;
-import com.upversionlab.keugasto.base.BaseFragment;
+import com.upversionlab.keugasto.controller.base.BaseFragment;
 import com.upversionlab.keugasto.controller.category.AddCategoryActivity;
 import com.upversionlab.keugasto.controller.category.AddCategoryFragment;
 import com.upversionlab.keugasto.model.category.Category;

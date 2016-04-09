@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.upversionlab.keugasto.R;
-import com.upversionlab.keugasto.base.BaseFragment;
+import com.upversionlab.keugasto.controller.base.BaseFragment;
 import com.upversionlab.keugasto.model.expense.Expense;
 import com.upversionlab.keugasto.model.expense.ExpenseDatabaseHelper;
 

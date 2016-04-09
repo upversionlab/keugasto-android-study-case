@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.upversionlab.keugasto.R;
-import com.upversionlab.keugasto.base.BaseFragment;
+import com.upversionlab.keugasto.controller.base.BaseFragment;
 import com.upversionlab.keugasto.model.category.Category;
 import com.upversionlab.keugasto.model.category.CategoryDatabaseHelper;
 
