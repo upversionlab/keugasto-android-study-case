@@ -11,9 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.upversionlab.keugasto.controller.balance.BalanceFragment;
 import com.upversionlab.keugasto.controller.category.CategoriesFragment;
 import com.upversionlab.keugasto.controller.expense.ExpensesFragment;
 
+/**
+ * Created by vruzeda on 4/8/16.
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -53,10 +57,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private boolean onNavigationItemSelected(int id) {
         Fragment fragment = null;
 
-        if (id == R.id.nav_expenses) {
-            fragment = new ExpensesFragment();
-        } else if (id == R.id.nav_categories) {
-            fragment = new CategoriesFragment();
+        switch (id) {
+            case R.id.nav_expenses:
+                fragment = new ExpensesFragment();
+                break;
+            case R.id.nav_categories:
+                fragment = new CategoriesFragment();
+                break;
+            case R.id.nav_balance:
+                fragment = new BalanceFragment();
+                break;
         }
 
         if (fragment != null) {

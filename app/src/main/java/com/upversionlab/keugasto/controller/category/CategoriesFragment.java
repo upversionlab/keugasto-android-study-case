@@ -10,14 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.controller.base.BaseFragment;
-import com.upversionlab.keugasto.model.category.Category;
 import com.upversionlab.keugasto.model.category.CategoryDatabaseHelper;
-
-import java.util.List;
 
 /**
  * Created by vruzeda on 4/8/16.
@@ -26,6 +22,7 @@ public class CategoriesFragment extends BaseFragment {
 
     private static final int ADD_CATEGORY_REQUEST_CODE = 1;
 
+    private CategoryDatabaseHelper categoryDatabaseHelper;
     private CategoriesAdapter categoriesAdapter;
 
     @Nullable
@@ -36,7 +33,10 @@ public class CategoriesFragment extends BaseFragment {
         setHasOptionsMenu(false);
         setHasFloatingActionButton(true);
 
+        categoryDatabaseHelper = new CategoryDatabaseHelper(getContext());
+
         categoriesAdapter = new CategoriesAdapter();
+        categoriesAdapter.updateCategories(categoryDatabaseHelper.getCategories());
 
         RecyclerView categoriesRecyclerView = (RecyclerView) view.findViewById(R.id.categories_recycler_view);
         categoriesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -61,51 +61,8 @@ public class CategoriesFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_CATEGORY_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                categoriesAdapter.updateCategories();
+                categoriesAdapter.updateCategories(categoryDatabaseHelper.getCategories());
             }
-        }
-    }
-
-    private class CategoriesAdapter extends RecyclerView.Adapter<ExpenseViewHolder> {
-
-        private CategoryDatabaseHelper categoryDatabaseHelper;
-        private List<Category> categories;
-
-        CategoriesAdapter() {
-            categoryDatabaseHelper = new CategoryDatabaseHelper(getContext());
-            updateCategories();
-        }
-
-        @Override
-        public int getItemCount() {
-            return categories.size();
-        }
-
-        @Override
-        public ExpenseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_category, parent, false);
-            return new ExpenseViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(ExpenseViewHolder holder, int position) {
-            Category category = categories.get(position);
-            holder.nameTextView.setText(category.name);
-        }
-
-        public void updateCategories() {
-            categories = categoryDatabaseHelper.getCategories();
-            notifyDataSetChanged();
-        }
-    }
-
-    private class ExpenseViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView nameTextView;
-
-        public ExpenseViewHolder(View itemView) {
-            super(itemView);
-            nameTextView = (TextView) itemView.findViewById(R.id.category_name);
         }
     }
 }

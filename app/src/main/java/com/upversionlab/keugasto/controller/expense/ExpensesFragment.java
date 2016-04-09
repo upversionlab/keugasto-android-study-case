@@ -10,14 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.controller.base.BaseFragment;
-import com.upversionlab.keugasto.model.expense.Expense;
 import com.upversionlab.keugasto.model.expense.ExpenseDatabaseHelper;
-
-import java.util.List;
 
 /**
  * Created by vruzeda on 4/8/16.
@@ -26,6 +22,7 @@ public class ExpensesFragment extends BaseFragment {
 
     private static final int ADD_EXPENSE_REQUEST_CODE = 1;
 
+    private ExpenseDatabaseHelper expenseDatabaseHelper;
     private ExpensesAdapter expensesAdapter;
 
     @Nullable
@@ -36,7 +33,10 @@ public class ExpensesFragment extends BaseFragment {
         setHasOptionsMenu(false);
         setHasFloatingActionButton(true);
 
+        expenseDatabaseHelper = new ExpenseDatabaseHelper(getContext());
+
         expensesAdapter = new ExpensesAdapter();
+        expensesAdapter.updateExpenses(expenseDatabaseHelper.getExpenses());
 
         RecyclerView expensesRecyclerView = (RecyclerView) view.findViewById(R.id.expenses_recycler_view);
         expensesRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -61,54 +61,8 @@ public class ExpensesFragment extends BaseFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_EXPENSE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
-                expensesAdapter.updateExpenses();
+                expensesAdapter.updateExpenses(expenseDatabaseHelper.getExpenses());
             }
-        }
-    }
-
-    private class ExpensesAdapter extends RecyclerView.Adapter<ExpenseViewHolder> {
-
-        private ExpenseDatabaseHelper expenseDatabaseHelper;
-        private List<Expense> expenses;
-
-        ExpensesAdapter() {
-            expenseDatabaseHelper = new ExpenseDatabaseHelper(getContext());
-            updateExpenses();
-        }
-
-        @Override
-        public int getItemCount() {
-            return expenses.size();
-        }
-
-        @Override
-        public ExpenseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_holder_expense, parent, false);
-            return new ExpenseViewHolder(itemView);
-        }
-
-        @Override
-        public void onBindViewHolder(ExpenseViewHolder holder, int position) {
-            Expense expense = expenses.get(position);
-            holder.categoryTextView.setText(expense.category.name);
-            holder.valueTextView.setText(Float.toString(expense.value));
-        }
-
-        public void updateExpenses() {
-            expenses = expenseDatabaseHelper.getExpenses();
-            notifyDataSetChanged();
-        }
-    }
-
-    private class ExpenseViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView categoryTextView;
-        public TextView valueTextView;
-
-        public ExpenseViewHolder(View itemView) {
-            super(itemView);
-            categoryTextView = (TextView) itemView.findViewById(R.id.expense_category);
-            valueTextView = (TextView) itemView.findViewById(R.id.expense_value);
         }
     }
 }

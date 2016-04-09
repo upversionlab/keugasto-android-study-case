@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.upversionlab.keugasto.R;
 
+/**
+ * Created by vruzeda on 4/8/16.
+ */
 public class AddExpenseActivity extends AppCompatActivity {
 
     @Override

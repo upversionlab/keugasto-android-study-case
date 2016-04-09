@@ -8,6 +8,9 @@
         <item
             android:id="@+id/nav_categories"
             android:title="@string/categories_title" />
+        <item
+            android:id="@+id/nav_balance"
+            android:title="@string/balance_title" />
     </group>
 
 </menu>

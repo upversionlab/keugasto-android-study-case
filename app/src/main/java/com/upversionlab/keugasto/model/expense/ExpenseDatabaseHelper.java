@@ -87,6 +87,46 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
         return getExpenses(null, null);
     }
 
+    public List<Expense> getExpensesByCategory(Category category) {
+        String selection = ExpenseEntry.CATEGORY_ID_COLUMN_NAME + " = ?";
+        String[] selectionArgs = {
+                Long.toString(category.id)
+        };
+        return getExpenses(selection, selectionArgs);
+    }
+
+    public float sumExpensesValuesByCategory(Category category) {
+        float expensesValues = 0;
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String[] projection = {
+                "SUM(" + ExpenseEntry.VALUE_COLUMN_NAME + ")"
+        };
+
+        String selection = ExpenseEntry.CATEGORY_ID_COLUMN_NAME + " = ?";
+
+        String[] selectionArgs = {
+                Long.toString(category.id)
+        };
+
+        Cursor cursor = database.query(
+                ExpenseEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            expensesValues = cursor.getFloat(0);
+        }
+
+        return expensesValues;
+    }
+
     private List<Expense> getExpenses(String selection, String[] selectionArgs) {
         List<Expense> expenses = new ArrayList<>();
 
