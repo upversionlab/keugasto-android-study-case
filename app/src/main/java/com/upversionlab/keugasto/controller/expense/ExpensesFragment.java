@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
 import com.upversionlab.keugasto.model.expense.Expense;
-import com.upversionlab.keugasto.model.expense.ExpenseDAO;
+import com.upversionlab.keugasto.model.expense.ExpenseDatabaseHelper;
 
 import java.util.List;
 
@@ -68,11 +68,11 @@ public class ExpensesFragment extends BaseFragment {
 
     private class ExpensesAdapter extends RecyclerView.Adapter<ExpenseViewHolder> {
 
-        private ExpenseDAO expenseDAO;
+        private ExpenseDatabaseHelper expenseDatabaseHelper;
         private List<Expense> expenses;
 
         ExpensesAdapter() {
-            expenseDAO = ExpenseDAO.getInstance();
+            expenseDatabaseHelper = new ExpenseDatabaseHelper(getContext());
             updateExpenses();
         }
 
@@ -95,7 +95,7 @@ public class ExpensesFragment extends BaseFragment {
         }
 
         public void updateExpenses() {
-            expenses = expenseDAO.getExpenses();
+            expenses = expenseDatabaseHelper.getExpenses();
             notifyDataSetChanged();
         }
     }

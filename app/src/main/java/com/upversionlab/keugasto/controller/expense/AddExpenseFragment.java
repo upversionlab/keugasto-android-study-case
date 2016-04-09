@@ -24,7 +24,7 @@ import com.upversionlab.keugasto.controller.category.AddCategoryFragment;
 import com.upversionlab.keugasto.model.category.Category;
 import com.upversionlab.keugasto.model.category.CategoryDatabaseHelper;
 import com.upversionlab.keugasto.model.expense.Expense;
-import com.upversionlab.keugasto.model.expense.ExpenseDAO;
+import com.upversionlab.keugasto.model.expense.ExpenseDatabaseHelper;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class AddExpenseFragment extends BaseFragment {
 
     private static final int ADD_CATEGORY_REQUEST_CODE = 1;
 
-    private ExpenseDAO expenseDAO;
+    private ExpenseDatabaseHelper expenseDatabaseHelper;
     private CategoryDatabaseHelper categoryDatabaseHelper;
 
     private EditText categoryEditText;
@@ -59,7 +59,7 @@ public class AddExpenseFragment extends BaseFragment {
         setHasOptionsMenu(false);
         setHasFloatingActionButton(true);
 
-        expenseDAO = ExpenseDAO.getInstance();
+        expenseDatabaseHelper = new ExpenseDatabaseHelper(getContext());
         categoryDatabaseHelper = new CategoryDatabaseHelper(getContext());
 
         categoryEditText = (EditText) view.findViewById(R.id.add_expense_category);
@@ -99,7 +99,7 @@ public class AddExpenseFragment extends BaseFragment {
                 float value = Float.parseFloat(valueEditText.getText().toString());
                 String userDescription = userDescriptionEditText.getText().toString();
 
-                Expense expense = expenseDAO.addExpense(selectedCategory, value, selectedDate, userDescription);
+                Expense expense = expenseDatabaseHelper.addExpense(selectedCategory, value, selectedDate, userDescription);
 
                 Intent data = new Intent();
                 data.putExtra(EXPENSE_EXTRA, expense);

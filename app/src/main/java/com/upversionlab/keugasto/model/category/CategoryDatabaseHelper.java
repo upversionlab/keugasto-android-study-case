@@ -18,7 +18,7 @@ public class CategoryDatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Category.db";
 
-    private static abstract class CategoryEntry implements BaseColumns {
+    public static abstract class CategoryEntry implements BaseColumns {
         public static final String TABLE_NAME = "Category";
         public static final String NAME_COLUMN_NAME = "name";
         public static final String LIMIT_COLUMN_NAME = "value";
@@ -64,6 +64,47 @@ public class CategoryDatabaseHelper extends SQLiteOpenHelper {
         category.id = id;
         category.name = name;
         category.limit = limit;
+        return category;
+    }
+
+    public Category getCategoryById(long categoryId) {
+        Category category = null;
+
+        SQLiteDatabase database = getReadableDatabase();
+
+        String[] projection = {
+                CategoryEntry._ID,
+                CategoryEntry.NAME_COLUMN_NAME,
+                CategoryEntry.LIMIT_COLUMN_NAME,
+        };
+
+        String selection = CategoryEntry._ID + "= ?";
+
+        String[] selectionArgs = {
+                Long.toString(categoryId)
+        };
+
+        Cursor cursor = database.query(
+                CategoryEntry.TABLE_NAME,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        if (cursor.moveToFirst()) {
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(CategoryEntry._ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(CategoryEntry.NAME_COLUMN_NAME));
+            float limit = cursor.getFloat(cursor.getColumnIndexOrThrow(CategoryEntry.LIMIT_COLUMN_NAME));
+
+            category = new Category();
+            category.id = id;
+            category.name = name;
+            category.limit = limit;
+        }
+
         return category;
     }
 
