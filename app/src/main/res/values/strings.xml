@@ -17,4 +17,6 @@
 
     <!-- Add Category Fragment -->
     <string name="add_category_title">Add Category</string>
+    <string name="add_category_name">Name</string>
+    <string name="add_category_limit">Limit</string>
 </resources>

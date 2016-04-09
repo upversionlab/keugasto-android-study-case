@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
@@ -19,6 +20,9 @@ public class AddCategoryFragment extends BaseFragment {
 
     public static final String CATEGORY_EXTRA = "CATEGORY_EXTRA";
 
+    private EditText nameEditText;
+    private EditText limitEditText;
+
     private CategoryDAO categoryDAO;
 
     @Nullable
@@ -28,6 +32,9 @@ public class AddCategoryFragment extends BaseFragment {
         setActionBarTitle(R.string.add_category_title);
         setHasOptionsMenu(false);
         setHasFloatingActionButton(true);
+
+        nameEditText = (EditText) view.findViewById(R.id.add_category_name);
+        limitEditText = (EditText) view.findViewById(R.id.add_category_limit);
 
         categoryDAO = CategoryDAO.getInstance();
 
@@ -40,7 +47,10 @@ public class AddCategoryFragment extends BaseFragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Category category = categoryDAO.addCategory("Category", 100);
+                String name = nameEditText.getText().toString();
+                float limit = Float.parseFloat(limitEditText.getText().toString());
+
+                Category category = categoryDAO.addCategory(name, limit);
 
                 Intent data = new Intent();
                 data.putExtra(CATEGORY_EXTRA, category);
