@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.upversionlab.keugasto.category.CategoriesFragment;
-import com.upversionlab.keugasto.expense.ExpensesFragment;
+import com.upversionlab.keugasto.controller.category.CategoriesFragment;
+import com.upversionlab.keugasto.controller.expense.ExpensesFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

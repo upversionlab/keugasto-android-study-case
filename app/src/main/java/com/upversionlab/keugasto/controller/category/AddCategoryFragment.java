@@ -1,4 +1,4 @@
-package com.upversionlab.keugasto.category;
+package com.upversionlab.keugasto.controller.category;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.EditText;
 
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
+import com.upversionlab.keugasto.model.category.Category;
+import com.upversionlab.keugasto.model.category.CategoryDAO;
 
 /**
  * Created by vruzeda on 4/9/16.

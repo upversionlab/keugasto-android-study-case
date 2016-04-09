@@ -1,4 +1,4 @@
-package com.upversionlab.keugasto.category;
+package com.upversionlab.keugasto.controller.expense;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.upversionlab.keugasto.R;
 
-public class AddCategoryActivity extends AppCompatActivity {
+public class AddExpenseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -14,6 +14,6 @@ public class AddCategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fab);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, new AddCategoryFragment()).commit();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new AddExpenseFragment()).commit();
     }
 }

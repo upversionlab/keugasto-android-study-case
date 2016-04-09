@@ -1,4 +1,4 @@
-package com.upversionlab.keugasto.category;
+package com.upversionlab.keugasto.model.category;
 
 import java.io.Serializable;
 

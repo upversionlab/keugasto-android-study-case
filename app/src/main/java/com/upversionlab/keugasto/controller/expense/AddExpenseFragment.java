@@ -1,4 +1,4 @@
-package com.upversionlab.keugasto.expense;
+package com.upversionlab.keugasto.controller.expense;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -19,10 +19,12 @@ import android.widget.EditText;
 
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
-import com.upversionlab.keugasto.category.AddCategoryActivity;
-import com.upversionlab.keugasto.category.AddCategoryFragment;
-import com.upversionlab.keugasto.category.Category;
-import com.upversionlab.keugasto.category.CategoryDAO;
+import com.upversionlab.keugasto.controller.category.AddCategoryActivity;
+import com.upversionlab.keugasto.controller.category.AddCategoryFragment;
+import com.upversionlab.keugasto.model.category.Category;
+import com.upversionlab.keugasto.model.category.CategoryDAO;
+import com.upversionlab.keugasto.model.expense.Expense;
+import com.upversionlab.keugasto.model.expense.ExpenseDAO;
 
 import java.text.DateFormat;
 import java.util.ArrayList;

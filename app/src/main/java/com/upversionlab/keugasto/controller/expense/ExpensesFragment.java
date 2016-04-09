@@ -1,4 +1,4 @@
-package com.upversionlab.keugasto.expense;
+package com.upversionlab.keugasto.controller.expense;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 import com.upversionlab.keugasto.R;
 import com.upversionlab.keugasto.base.BaseFragment;
-import com.upversionlab.keugasto.category.CategoryDAO;
+import com.upversionlab.keugasto.model.expense.Expense;
+import com.upversionlab.keugasto.model.expense.ExpenseDAO;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package com.upversionlab.keugasto.expense;
+package com.upversionlab.keugasto.model.expense;
 
-import com.upversionlab.keugasto.category.Category;
+import com.upversionlab.keugasto.model.category.Category;
 
 import java.io.Serializable;
 import java.util.Calendar;
