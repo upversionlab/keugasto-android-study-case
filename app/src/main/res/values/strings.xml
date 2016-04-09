@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Keugasto</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Expenses Fragment -->
+    <string name="expenses_title">Expenses</string>
+    <string name="expenses_add_expense">Add Expense</string>
+
+    <!-- Add Category Fragment -->
+    <string name="add_expense_title">Add Expense</string>
+
+    <!-- Categories Fragment -->
+    <string name="categories_title">Categories</string>
+    <string name="categories_add_category">Add Category</string>
+
+    <!-- Add Category Fragment -->
+    <string name="add_category_title">Add Category</string>
+</resources>
