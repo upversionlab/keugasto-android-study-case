@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/windows,osx,android,intellij,eclipse
 
 ### Windows ###
@@ -197,5 +196,3 @@ local.properties
 
 # Code Recommenders
 .recommenders/
-
-
