@@ -41,11 +41,11 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DROP_TABLE = "DROP TABLE IF EXISTS " + ExpenseEntry.TABLE_NAME;
 
-    private Context context;
+    private CategoryDatabaseHelper categoryDatabaseHelper;
 
     public ExpenseDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        this.context = context;
+        this.categoryDatabaseHelper = new CategoryDatabaseHelper(context);
     }
 
     @Override
@@ -157,7 +157,6 @@ public class ExpenseDatabaseHelper extends SQLiteOpenHelper {
             long dateInMillis = cursor.getLong(cursor.getColumnIndexOrThrow(ExpenseEntry.DATE_IN_MILLIS_COLUMN_NAME));
             String userDescription = cursor.getString(cursor.getColumnIndexOrThrow(ExpenseEntry.USER_DESCRIPTION_COLUMN_NAME));
 
-            CategoryDatabaseHelper categoryDatabaseHelper = new CategoryDatabaseHelper(context);
             Category category = categoryDatabaseHelper.getCategoryById(categoryId);
 
             Calendar date = Calendar.getInstance();
